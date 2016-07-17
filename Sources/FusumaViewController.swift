@@ -19,9 +19,9 @@ import Photos
     optional func fusumaClosed()
 }
 
-public var fusumaBaseTintColor   = UIColor.hex("#FFFFFF", alpha: 1.0)
-public var fusumaTintColor       = UIColor.hex("#009688", alpha: 1.0)
-public var fusumaBackgroundColor = UIColor.hex("#212121", alpha: 1.0)
+public var fusumaBaseTintColor   = UIColor.hex("#878787", alpha: 1.0)
+public var fusumaTintColor       = UIColor.hex("#2FE9D1", alpha: 1.0)
+public var fusumaBackgroundColor = UIColor.hex("#F4F4F6", alpha: 1.0)
 
 public var fusumaAlbumImage : UIImage? = nil
 public var fusumaCameraImage : UIImage? = nil
@@ -114,8 +114,6 @@ public final class FusumaViewController: UIViewController {
         let videoImage = fusumaVideoImage != nil ? fusumaVideoImage : UIImage(named: "ic_videocam", inBundle: bundle, compatibleWithTraitCollection: nil)
 
         
-        let checkImage = fusumaCheckImage != nil ? fusumaCheckImage : UIImage(named: "ic_check", inBundle: bundle, compatibleWithTraitCollection: nil)
-        let closeImage = fusumaCloseImage != nil ? fusumaCloseImage : UIImage(named: "ic_close", inBundle: bundle, compatibleWithTraitCollection: nil)
         
         if fusumaTintIcons {
             
@@ -131,19 +129,11 @@ public final class FusumaViewController: UIViewController {
             cameraButton.tintColor  = fusumaTintColor
             cameraButton.adjustsImageWhenHighlighted  = false
             
-            closeButton.setImage(closeImage?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-            closeButton.setImage(closeImage?.imageWithRenderingMode(.AlwaysTemplate), forState: .Highlighted)
-            closeButton.setImage(closeImage?.imageWithRenderingMode(.AlwaysTemplate), forState: .Selected)
-            closeButton.tintColor = fusumaBaseTintColor
-            
             videoButton.setImage(videoImage, forState: .Normal)
             videoButton.setImage(videoImage, forState: .Highlighted)
             videoButton.setImage(videoImage, forState: .Selected)
             videoButton.tintColor  = fusumaTintColor
             videoButton.adjustsImageWhenHighlighted = false
-            
-            doneButton.setImage(checkImage?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-            doneButton.tintColor = fusumaBaseTintColor
             
         } else {
             
@@ -162,13 +152,14 @@ public final class FusumaViewController: UIViewController {
             videoButton.setImage(videoImage, forState: .Selected)
             videoButton.tintColor = nil
             
-            closeButton.setImage(closeImage, forState: .Normal)
-            doneButton.setImage(checkImage, forState: .Normal)
         }
         
         cameraButton.clipsToBounds  = true
         libraryButton.clipsToBounds = true
         videoButton.clipsToBounds = true
+        
+        cameraButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        libraryButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
 
         changeMode(Mode.Library)
         
@@ -443,7 +434,5 @@ private extension FusumaViewController {
     func highlightButton(button: UIButton) {
         
         button.tintColor = fusumaTintColor
-        
-        button.addBottomBorder(fusumaTintColor, width: 3)
     }
 }
